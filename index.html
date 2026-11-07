@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- Адаптив, запрет pinch-zoom -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0e0f12">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Калькулятор Dayzborn</title>
+
+  <!-- Шрифт Nunito ExtraBold -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Оболочка в стиле игрового окна -->
+  <div class="app">
+
+    <!-- ===== Верхняя панель: бренд + вкладки калькуляторов ===== -->
+    <header class="top-bar">
+      <div class="brand-block">
+        <div class="brand-icon">☢</div>
+        <div class="brand-text">
+          <span class="brand-title">Калькулятор Dayzborn</span>
+          <span class="brand-sub">Продажа BZ</span>
+        </div>
+      </div>
+
+      <!-- Переключение: База сдерживания / Листничество -->
+      <div class="tabs" role="tablist" aria-label="Выбор калькулятора">
+        <button type="button" class="tab active" data-calc="baza" role="tab" aria-selected="true">
+          База сдерживания
+        </button>
+        <button type="button" class="tab" data-calc="listnichestvo" role="tab" aria-selected="false">
+          Листничество
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== Три колонки ===== -->
+    <div class="layout">
+
+      <!-- Левая: категории предметов -->
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <h2>Категории <span class="count" id="catCount">0</span></h2>
+          <div class="sidebar-sub">Фильтр списка</div>
+        </div>
+        <!-- Пункты меню создаёт script.js -->
+        <div class="sidebar-list" id="sidebar"></div>
+      </aside>
+
+      <!-- Центр: заголовок, поиск, таблица -->
+      <section class="main">
+        <div class="main-header">
+          <div class="eyebrow" id="calcEyebrow">Калькулятор продажи</div>
+          <h1 id="calcTitle">База сдерживания</h1>
+        </div>
+
+        <div class="search-row">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Поиск предмета..."
+            autocomplete="off"
+            spellcheck="false"
+            inputmode="search"
+            aria-label="Поиск предмета"
+          >
+        </div>
+
+        <div class="table-wrap">
+          <table id="mainTable">
+            <thead>
+              <tr>
+                <th>Предмет</th>
+                <th>Цена 2 ранг</th>
+                <th>Цена у нас</th>
+                <th>Кол-во</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="no-results" id="noResults">Ничего не найдено</div>
+        </div>
+      </section>
+
+      <!-- Правая: итоги как «Награда» -->
+      <aside class="side">
+        <div class="side-section">
+          <h3>Награда</h3>
+          <div class="reward-grid">
+            <div class="reward-card">
+              <div class="rc-label">Сумма 2 ранг</div>
+              <div class="rc-value" id="total2">0</div>
+            </div>
+            <div class="reward-card highlight">
+              <div class="rc-label">Сумма у нас</div>
+              <div class="rc-value" id="totalUs">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <h3>О расчёте</h3>
+          <div class="meta-stack">
+            <div class="meta-card">
+              <span class="label">Разница</span>
+              <span class="value" id="diff">0</span>
+            </div>
+            <div class="meta-card">
+              <span class="label">50%</span>
+              <span class="value" id="half">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section give-section">
+          <!-- Копирует только число «Отдать» -->
+          <button type="button" class="give-btn" id="copyBtn" title="Скопировать число">
+            Отдать <span class="give-val" id="give">0</span>
+          </button>
+          <button type="button" class="btn-ghost danger reset-below" id="resetBtn">Сброс количеств</button>
+        </div>
+
+        <div class="side-section selected-list" id="selectedList">
+          <h3>Выбрано</h3>
+          <div class="selected-items" id="selectedItems"></div>
+        </div>
+
+        <div class="note">
+          + / − — количество (удерживайте)<br>
+          «Отдать» — копирует число<br>
+          Данные сохраняются в браузере<br>
+          Мясо медведей, гнилое мясо и кишки мутанта пока не добавлены
+        </div>
+      </aside>
+    </div>
+
+    <div class="banner-wrap">
+      <a href="https://wargm.ru/server/80543" target="_blank" rel="noopener noreferrer">
+        <img src="https://wargm.ru/primg468/80543.png" alt="wargm.ru — рейтинг серверов" width="468" height="60">
+      </a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
